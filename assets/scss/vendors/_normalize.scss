@@ -1,5 +1,4 @@
-@charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap"); /* Reset and base styles  */
+/* Reset and base styles  */
 /* Указываем box sizing */
 * {
   padding: 0;
@@ -68,7 +67,6 @@ li {
   padding: 0;
   margin: 0;
 }
-
 /* Убираем внутренние отступы */
 ul[class],
 ol[class] {
@@ -111,6 +109,7 @@ ol[class] {
 }
 
 /* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+
 /* Упрощаем работу с изображениями */
 img {
   max-width: 100%;
@@ -133,15 +132,9 @@ select {
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
 @media (prefers-reduced-motion: reduce) {
   * {
-    -webkit-animation-duration: 0.01ms !important;
-            animation-duration: 0.01ms !important;
-    -webkit-animation-iteration-count: 1 !important;
-            animation-iteration-count: 1 !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }
-body {
-  margin: 0 auto;
-  font-family: "Poppins", Helvetica, sans-serif;
-}/*# sourceMappingURL=style.css.map */
