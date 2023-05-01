@@ -56,6 +56,14 @@ function createKeyBoard() {
     }
   }
   init();
+  
+  document.querySelectorAll('.keyboard__key').forEach(function(element) {
+    element.onclick = function(event) {element.classList.remove('active');
+    let code = element.getAttribute('data');
+  
+    console.log(code);
+    }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', createKeyBoard);
@@ -179,3 +187,5 @@ document.querySelectorAll('.keyboard__key').forEach(function (element) {
   this.classList.add('active');
   console.log(code);
 });
+
+alert('Доброго времени суток. Очень прошу проверить работу в последний день проерки, после 20 часов). Надеюсь на понимание... Нажмтие ОК - отобразиться то, что удалось сделать.');
