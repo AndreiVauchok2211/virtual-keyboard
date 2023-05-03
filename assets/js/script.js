@@ -57,13 +57,134 @@ function createKeyBoard() {
   }
   init();
   
-  document.querySelectorAll('.keyboard__key').forEach(function(element) {
-    element.onclick = function(event) {element.classList.remove('active');
-    let code = element.getAttribute('data');
+  // document.querySelectorAll('.keyboard__key').forEach(function(element) {
+  //   element.onclick = function(event) {element.classList.remove('active');
+  //   let code = element.getAttribute('data');
   
+  //   console.log(code);
+  //   }
+  //   });
+
+  document.querySelectorAll('.keyboard__key').forEach(function(element) {
+    element.onclick = function(event) {
+      document.querySelectorAll('.keyboard__key').forEach(function(element) {
+        element.classList.remove('active');
+      })
+    let code = this.getAttribute('data');
+  this.classList.add('active')
     console.log(code);
+  
     }
+    
     });
+
+    
+    const keyboardEL = document.querySelector('.keyboard');
+    const textareaEl = document.querySelector('.textarea');
+    keyboardEL.addEventListener('click', function(event) {
+       textareaEl.focus();
+       let key;
+      console.log(event.target.className); 
+       if(event.target.classList.contains('keyboard__key')) 
+       {
+      
+          key = event.target.childNodes;
+          // console.log(key);
+
+          for(let k of key) {
+            // console.log(k);
+            if(!k.classList.contains('hidden')) {
+              key = k.childNodes;
+             for(let span of key) {
+              if(!span.classList.contains('hidden')) {
+                key = span.textContent;
+                // console.log(key);
+              }
+             }
+            }
+          }
+       } else {
+           key = event.target.textContent;
+       }
+
+          console.log(key)
+          if (key.length === 1 && !(event.target.closest('.ArrowLeft') || event.target.closest('.ArrowUp') || event.target.closest('.ArrowDown') || event.target.closest('.ArrowRight'))) {
+             textareaEl.value += key;
+          }
+
+        if(event.target.closest('.Backspace')) {
+          textareaEl.value = textareaEl.value.slice(0, -1);
+        }
+
+        if(event.target.closest('.Enter')) {
+          textareaEl.value += '\n';
+        }
+
+        if(event.target.closest('.Tab')) {
+          textareaEl.value += '    ';
+        }
+
+        if(event.target.closest('.Space')) {
+          textareaEl.value += ' ';
+        }
+        
+        if(event.target.closest('.Delete')) {
+          let cursor = textareaEl.selectionStart;
+          if(cursor === 0) {
+            textareaEl.value = textareaEl.value.slice(1);
+            textareaEl.selectionStart = textareaEl.selectionEnd = 0;
+          } else if(cursor === textareaEl.value.length -1) {
+            let size = textareaEl.value.length - 1;
+            textareaEl.value = textareaEl.value.slice(0, size);
+          } else if(cursor === textareaEl.value.length) {
+            textareaEl.value = textareaEl.value;
+          } else {
+            textareaEl.value = textareaEl.value.slice(0, cursor) + textareaEl.value.slice(cursor + 1);
+            textareaEl.selectionStart = textareaEl.selectionEnd = cursor;
+          }
+        }
+
+        if(event.target.closest('.ArrowRight')) {
+        
+          let cursor = textareaEl.selectionStart;
+          if(cursor) {
+            textareaEl.selectionStart = textareaEl.selectionEnd = cursor + 1;
+          }
+        }
+
+        if(event.target.closest('.ArrowLeft')) {
+        
+          let cursor = textareaEl.selectionStart;
+          if(cursor) {
+            textareaEl.selectionStart = textareaEl.selectionEnd = cursor - 1;
+          }
+        }
+
+        if(event.target.closest('.ArrowDown')) {
+          console.log(event.target);
+          let cursor = textareaEl.selectionStart;
+          let newStr = '';
+          if(textareaEl.value.indexOf('\n') != -1) {
+           newStr = textareaEl.value.indexOf('\n', cursor)
+          }
+          textareaEl.selectionStart = textareaEl.selectionEnd = newStr ? newStr + cursor + 1 : cursor;
+        }
+
+        if(event.target.closest('.ArrowUp')) {
+          console.log(event.target);
+          let cursor = textareaEl.selectionStart;
+          let newStr = '';
+          if(textareaEl.value.indexOf('\n') != -1) {
+           newStr = textareaEl.value.indexOf('\n', cursor - 1)
+          }
+          textareaEl.selectionStart = textareaEl.selectionEnd = newStr ? newStr : cursor;
+        }
+        
+        })
+
+        
+
+
 }
 
 document.addEventListener('DOMContentLoaded', createKeyBoard);
@@ -94,13 +215,13 @@ const keyRusCapsL = ['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-'
 
 const keyRusShift = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '/', 'Del', 'CapsLock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter', 'Shift', 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', '▲', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '◄', '▼', '►', 'Ctrl'];
 
-const keyCodeArr = [['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'], ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete'], ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'], ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'], ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ControlRight']];
+const keyCodeArr = [['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'], ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete'], ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'], ['ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'], ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown','ArrowRight', 'ControlRight']];
 
 const objKeyRusShift = {
   Backquote: ['Ё'], Digit1: ['!'], Digit2: ['"'], Digit3: ['№'], Digit4: [';'], Digit5: ['%'], Digit6: [':'], Digit7: ['?'], Digit8: ['*'], Digit9: ['('], Digit0: [')'], Minus: ['_'], Equal: ['+'], Backspace: ['Backspace'], Tab: ['Tab'], KeyQ: ['Й'], KeyW: ['Ц'], KeyE: ['У'], KeyR: ['К'], KeyT: ['Е'], KeyY: ['Н'], KeyU: ['Г'], KeyI: ['Ш'], KeyO: ['Щ'], KeyP: ['З'], BracketLeft: ['Х'], BracketRight: ['Ъ'], Backslash: ['/'], Delete: ['Delete'], CapsLock: ['CapsLock'], KeyA: ['Ф'], KeyS: ['Ы'], KeyD: ['В'], KeyF: ['А'], KeyG: ['П'], KeyH: ['Р'], KeyJ: ['О'], KeyK: ['Л'], KeyL: ['Д'], Semicolon: ['Ж'], Quote: ['Э'], Enter: ['Enter'], ShiftLeft: ['Shift'], KeyZ: ['Я'], KeyX: ['Ч'], KeyC: ['С'], KeyV: ['М'], KeyB: ['И'], KeyN: ['Т'], KeyM: ['Ь'], Comma: ['Б'], Period: ['Ю'], Slash: [','], ArrowUp: ['ArrowUp'], ShiftRight: ['Shift'], ControlLeft: ['Control'], MetaLeft: ['Meta'], AltLeft: ['Alt'], Space: [' '], AltRight: ['Alt'], ControlRight: ['Control'], ArrowLeft: ['ArrowLeft'], ArrowRight: ['ArrowRight'], ArrowDown: ['ArrowDown'],
 };
 
-const keyCodeArray = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ControlRight'];
+const keyCodeArray = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft','ArrowDown','ArrowRight', 'ControlRight'];
 
 let objKeyRusCapsl = {};
 for (let i = 0; i < keyCodeArray.length; i++) {
