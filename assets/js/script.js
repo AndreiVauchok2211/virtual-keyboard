@@ -121,7 +121,7 @@ function createKeyBoard() {
         }
 
         if(event.target.closest('.Tab')) {
-          textareaEl.value += '    ';
+          textareaEl.value += '\t';
         }
 
         if(event.target.closest('.Space')) {
@@ -183,7 +183,20 @@ function createKeyBoard() {
         })
 
         
-
+      //   document.addEventListener('keydown', (e) => {
+      //     if (e.target.closest('.ControlLeft') && e.target.closest('.AltLeft')) {
+      //        let keys = document.querySelectorAll('.ru');
+      //        keys.forEach((key) => {
+      //           if (key.classList.contains('hidden')) {
+      //              key.classList.remove('hidden');
+      //              document.querySelectorAll('.eng').classList.add('hidden');
+      //           } else {
+      //              key.classList.add('hidden');
+      //              document.querySelectorAll('.eng').classList.remove('hidden');
+      //           }
+      //        });
+      //     }
+      //  });
 
 }
 
@@ -276,6 +289,21 @@ document.addEventListener('keyup', (e) => {
   document.querySelectorAll('.keyboard__key').forEach((key) => { key.classList.remove('active'); });
 });
 
+// document.addEventListener('keydown', (e) => {
+//   if (e.target.closest('.ControlLeft') && e.target.closest('.AltLeft')) {
+//      let keys = document.querySelectorAll('.ru');
+//      keys.forEach((key) => {
+//         if (key.classList.contains('hidden')) {
+//            key.classList.remove('hidden');
+//            document.querySelectorAll('.eng').classList.add('hidden');
+//         } else {
+//            key.classList.add('hidden');
+//            document.querySelectorAll('.eng').classList.remove('hidden');
+//         }
+//      });
+//   }
+// });
+
 /*
 const array = [];
 console.log(document.querySelectorAll('.keyboard__key'));
@@ -298,15 +326,15 @@ document.querySelectorAll('.keyboard__key').forEach(function(element) {
   });
 */
 
-document.querySelectorAll('.keyboard__key').forEach(function (element) {
-  element.addEventListener('click', () => {
-    console.log(element);
-    element.classList.remove('active');
-  });
-  console.log(element.getAttribute('data'));
-  const code = this.getAttribute('data');
-  this.classList.add('active');
-  console.log(code);
-});
+// document.querySelectorAll('.keyboard__key').forEach(function (element) {
+//   element.addEventListener('click', () => {
+//     console.log(element);
+//     element.classList.remove('active');
+//   });
+//   console.log(element.getAttribute('data'));
+//   const code = this.getAttribute('data');
+//   this.classList.add('active');
+//   console.log(code);
+// });
 
-alert('Доброго времени суток. Очень прошу проверить работу в последний день проерки, после 20 часов). Надеюсь на понимание... Нажмтие ОК - отобразиться то, что удалось сделать.');
+// alert('Доброго времени суток. Очень прошу проверить работу в последний день проерки, после 20 часов). Надеюсь на понимание... Нажмтие ОК - отобразиться то, что удалось сделать.');
