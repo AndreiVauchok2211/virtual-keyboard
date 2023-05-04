@@ -154,13 +154,17 @@ body {
 }
 
 .textarea {
+  height: 140px;
   width: 90%;
+  border-radius: 10px;
+  border: solid 1px rgb(27, 92, 92);
 }
 
 .keyboard {
-  height: 340px;
+  height: 222px;
   width: 692px;
-  margin: 0 auto;
+  margin: auto;
+  border-radius: 2px;
   background-color: rgba(102, 119, 119, 0.7);
 }
 
